@@ -7,12 +7,12 @@ import (
 	"net/http"
 )
 
-//	doLogin login
+// doLogin login
 func (rt *_router) doLogin(w http.ResponseWriter, r *http.Request, ps httprouter.Params, ctx reqcontext.RequestContext) {
 	// Get the username from the requestBody
 	user, err := GetMyUser(r)
 	if err != nil {
-		ctx.Logger.WithError(err).Error("Failed to parse request body")
+		ctx.Logger.WithError(err).Error("Error: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -20,7 +20,7 @@ func (rt *_router) doLogin(w http.ResponseWriter, r *http.Request, ps httprouter
 	// User Login
 	retrievedUser, err := rt.db.LoginUser(user.Username, user.Password)
 	if err != nil {
-		ctx.Logger.WithError(err).Error("Error during func LoginUser")
+		ctx.Logger.WithError(err).Error("Error: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -29,7 +29,7 @@ func (rt *_router) doLogin(w http.ResponseWriter, r *http.Request, ps httprouter
 	w.Header().Set("Content-Type", "text/plain")
 	err = json.NewEncoder(w).Encode(retrievedUser)
 	if err != nil {
-		ctx.Logger.WithError(err).Error("Failed to encode user")
+		ctx.Logger.WithError(err).Error("Error: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -40,7 +40,7 @@ func (rt *_router) doRegister(w http.ResponseWriter, r *http.Request, ps httprou
 	// Get the username from the requestBody
 	user, err := GetMyUser(r)
 	if err != nil {
-		ctx.Logger.WithError(err).Error("Failed to parse request body")
+		ctx.Logger.WithError(err).Error("Error: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -50,7 +50,7 @@ func (rt *_router) doRegister(w http.ResponseWriter, r *http.Request, ps httprou
 	// User Sign in
 	ID, err := rt.db.RegisterUser(user.Username, user.Password)
 	if err != nil {
-		ctx.Logger.WithError(err).Error("Error during func RegisterUser")
+		ctx.Logger.WithError(err).Error("Error: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -59,7 +59,7 @@ func (rt *_router) doRegister(w http.ResponseWriter, r *http.Request, ps httprou
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(ID)
 	if err != nil {
-		ctx.Logger.WithError(err).Error("Failed to encode userID")
+		ctx.Logger.WithError(err).Error("Error: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
