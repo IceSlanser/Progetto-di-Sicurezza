@@ -24,7 +24,7 @@ export default {
           this.$router.push({ path: '/success' })
         } catch (e) {
           if (e.response && e.response.status === 400) {
-            this.error = "Use a correct username and password";
+            this.error = "Something is wrong";
           } else if (e.response && e.response.status === 500) {
             this.error = "An internal error occurred, please try again later.";
           } else {
@@ -50,7 +50,7 @@ export default {
           this.$router.push({ path: '/success' })
         } catch (e) {
           if (e.response && e.response.status === 400) {
-            this.error = "Username is already taken";
+            this.error = "Something is wrong";
           } else if (e.response && e.response.status === 500) {
             this.error = "An internal error occurred, please try again later.";
           } else {
@@ -74,18 +74,18 @@ export default {
   </div>
 
   <div>
-    <div class="site-name" style="top: 15%">
+    <div class="site-name" style="top: 10rem">
       <h1 class="h1">This is a simulation</h1>
     </div>
 
-    <div class="d-flex justify-content-center position-absolute" style="top: 40%; left: 0; width: 100%; height: 100%;">
+    <div class="d-flex justify-content-center position-absolute" style="top: 25rem; left: 0; width: 100%; height: 100%;">
       <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center">
         <h2 class="h2">My pleasure to see you there</h2>
         <h2 class="h2 text-center" v-if="user.username">{{ user.username }}</h2>
       </div>
     </div>
 
-    <div class="d-flex justify-content-center position-absolute" style="top: 50%; left: 0; width: 100%; height: 100%; padding-top: 1rem">
+    <div class="d-flex justify-content-center position-absolute" style="top: 30rem; left: 0; width: 100%; height: 100%; padding-top: 1rem">
       <div>
         <div class="d-flex align-items-center" style="padding-bottom: .5rem">
           <label for="username" class="form-label" style="padding-right: .5rem">Username:</label>
