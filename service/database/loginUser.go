@@ -8,7 +8,6 @@ import (
 )
 
 func (db *appdbimpl) RegisterUser(name string, password string) (uint64, error) {
-	fmt.Printf("INSERT INTO profiles (Username, Password) VALUES ('%s', '%s')\n", name, password)
 	query := fmt.Sprintf("INSERT INTO profiles (Username, Password) VALUES ('%s', '%s')", name, password)
 	res, err := db.c.Exec(query)
 	if err != nil {
@@ -27,7 +26,6 @@ func (db *appdbimpl) RegisterUser(name string, password string) (uint64, error) 
 
 func (db *appdbimpl) LoginUser(name string, password string) (User, error) {
 	var user User
-	fmt.Printf("SELECT * FROM profiles WHERE Username = '%s' AND Password = '%s'\n", name, password)
 	query := fmt.Sprintf("SELECT * FROM profiles WHERE Username = '%s' AND Password = '%s'", name, password)
 	err := db.c.QueryRow(query).Scan(&user.ID, &user.Username, &user.Password)
 	if err != nil {
